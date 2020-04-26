@@ -50,4 +50,35 @@ def get_prufer_code(adjacency_matrix):
     return prufer_code
 
 
+def get_prufer_adjacency_matrix(prufer_code):
+    matrix = [0] * (len(prufer_code) + 2)
+    for x in range(len(prufer_code) + 2):
+        matrix[x] = [0] * (len(prufer_code) + 2)
+    numbers = [i for i in range(1, len(prufer_code) + 3)]
+    for x in range(len(prufer_code)):
+        for number in numbers:
+            if number not in prufer_code:
+                numbers.remove(number)
+                matrix[number - 1][prufer_code[0] - 1] = 1
+                matrix[prufer_code[0] - 1][number - 1] = 1
+                del prufer_code[0]
+                break
+    matrix[numbers[0] - 1][numbers[1] - 1] = 1
+    matrix[numbers[1] - 1][numbers[0] - 1] = 1
+    return matrix
+
+
+def show_adjacency_matrix(adjacency_matrix):
+    print("Знайдена матриця суміжності: ")
+    for x in adjacency_matrix:
+        for y in x:
+            print("%2d" % y, end=" ")
+        print()
+
+
+print("Код прюфера:", end=" ")
 print(get_prufer_code(create_adjacency_matrix(get_data())))
+
+string = input("Введііть код прюфера: ")
+code = list(map(int, (string[:len(string)] + string[len(string) + 1:]).split()))
+show_adjacency_matrix(get_prufer_adjacency_matrix(code))
