@@ -76,9 +76,11 @@ def show_adjacency_matrix(adjacency_matrix):
         print()
 
 
-print("Код прюфера:", end=" ")
-print(get_prufer_code(create_adjacency_matrix(get_data())))
-
-string = input("Введііть код прюфера: ")
-code = list(map(int, (string[:len(string)] + string[len(string) + 1:]).split()))
-show_adjacency_matrix(get_prufer_adjacency_matrix(code))
+answer = int(input("Шукати код прюфера(1) чи шукати граф(2): "))
+if answer == 1:
+    print("Код прюфера:", end=" ")
+    print(get_prufer_code(create_adjacency_matrix(get_data())))
+elif answer == 2:
+    string = input("Введііть код прюфера: ")
+    code = list(map(int, (string[:len(string)] + string[len(string) + 1:]).split()))
+    show_adjacency_matrix(get_prufer_adjacency_matrix(code))
